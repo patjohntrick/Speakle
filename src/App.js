@@ -1,32 +1,77 @@
 import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Navigation from "./components/Navigation";
-import Product from "./components/Product";
+import Products from "./components/Products/Products";
 import { commerce } from './lib/Commerce';
+// import { BrowserRouter } from 'react-router-dom'
+import Cart from "./components/Cart/Cart";
+
 
 function App() {
 
   const [cartCount, setCartCount] = useState(0);
   const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState({});
+  const [itemQty, setitemQty] = useState(1);
+  const [emptyCart, setEmptyCart] = useState({});
+  const [visualCart, setVisualCart] = useState(true);
 
   const fetchProducts = async () => {
     const response = await commerce.products.list();
     setProducts(response.data);
   }
-
+  const fetchCart = async () => {
+    const response = await commerce.cart.retrieve();
+    console.log(response);
+  }
+  const handleAddToCart = async (productId) => {
+    const response = await commerce.cart.add(productId)
+    setCart(response.cart)
+  }
+  const handleRemoveCart = async (productId) => {
+    const response = await commerce.cart.remove(productId);
+    setCart(response.cart);
+  }
+  const handleEmptyCart = async () => {
+    const response = await commerce.cart.empty();
+    setEmptyCart(response)
+  }
+  const handleVisualCart = () => {
+    setVisualCart(!visualCart);
+  }
   useEffect(() => {
     fetchProducts();
+    fetchCart();
   }, [])
+  console.log(cart); 
+  // setCartItems(cart.line_items);
   
-  console.log(products);
-  
-  const handleCartCount = () => {
-    setCartCount(cartCount + 1);
-  }
+
 
   return (
     <div className="App">
-      <Navigation handleCartCount={handleCartCount} cartCount={cartCount} />
-      <Product handleCartCount={handleCartCount} cartCount={cartCount} />
+      <Navigation
+        cartCount={cartCount}
+        handleEmptyCart={handleEmptyCart}
+        totalItems={cart.total_items}
+        handleVisualCart={handleVisualCart}
+      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Products
+              cartCount={cartCount}
+              products={products}
+              handleAddToCart={handleAddToCart}
+            />
+          }
+        />
+        <Route
+          path="cart"
+          element={<Cart cartItems={cart.line_items} itemQty={itemQty} handleRemoveCart={handleRemoveCart} />}
+        />
+      </Routes>
     </div>
   );
 }
