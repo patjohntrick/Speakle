@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Speakle/static/css/main.8bbc0b8e.css",
+    "main.js": "/Speakle/static/js/main.fbc43d58.js",
+    "static/media/product1.jpg": "/Speakle/static/media/product1.68a5c862327c75dcfe67.jpg",
+    "index.html": "/Speakle/index.html",
+    "main.8bbc0b8e.css.map": "/Speakle/static/css/main.8bbc0b8e.css.map",
+    "main.fbc43d58.js.map": "/Speakle/static/js/main.fbc43d58.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8bbc0b8e.css",
+    "static/js/main.fbc43d58.js"
+  ]
+}
