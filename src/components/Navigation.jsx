@@ -1,16 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
-const Navigation = ({ handleCartCount, cartCount, handleEmptyCart, totalItems, handleVisualCart }) => {
-    return (
-      <nav className=" shadow py-5 px-7 flex justify-between fixed w-full bg-white top-[0] z-10 ">
-        <Link to="/">
-          <div className=" font-roboto text-2xl font-normal ">Speakle</div>
-        </Link>
+const Navigation = ({
+  handleCartCount,
+  cartCount,
+  handleEmptyCart,
+  totalItems,
+}) => {
+  const location = useLocation();
+
+  return (
+    <nav className=" shadow py-5 px-7 flex justify-between fixed w-full bg-white top-[0] z-10 ">
+      <Link to="/">
+        <div className=" font-roboto text-2xl font-normal ">Speakle</div>
+      </Link>
+      {location.pathname == "/" ? (
         <Link to="cart">
-          <div
-            className=" cursor-pointer rounded-full hover:bg-slate-100 flex items-center relative p-2 transition-all "
-          >
+          <div className=" cursor-pointer rounded-full hover:bg-slate-100 flex items-center relative p-2 transition-all ">
             <div
               className={
                 totalItems
@@ -24,7 +30,7 @@ const Navigation = ({ handleCartCount, cartCount, handleEmptyCart, totalItems, h
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -38,8 +44,9 @@ const Navigation = ({ handleCartCount, cartCount, handleEmptyCart, totalItems, h
             </svg>
           </div>
         </Link>
-      </nav>
-    );
-}
+      ) : null}
+    </nav>
+  );
+};
 
-export default Navigation
+export default Navigation;

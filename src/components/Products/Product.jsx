@@ -1,19 +1,18 @@
-import React from 'react'
-import Marshall from '../../img/product1.jpg'
+import React from "react";
+import Marshall from "../../img/product1.jpg";
 
 const Product = ({ cartCount, products, handleAddToCart }) => {
-  console.log(products);
   return (
     <>
       {products.map((product) => {
         return (
           <div key={product.id}>
-            <div className="product w-[350px] shadow cursor-pointer transition-all hover:shadow-xl ">
+            <div className="product w-[280px] shadow cursor-pointer transition-all hover:shadow-xl sm:w-[350px] ">
               <div className="img-container w-auto overflow-hidden">
                 <img
                   src={product.image.url}
                   alt={product.image.filename}
-                  className=" h-[280px] w-[100%] object-cover"
+                  className=" sm:h-[280px] w-[100%] h-[230px] object-cover"
                 />
               </div>
               <div className="text-container flex p-4 justify-between items-start">
@@ -25,9 +24,7 @@ const Product = ({ cartCount, products, handleAddToCart }) => {
                 </div>
                 <div
                   className="cart-container cursor-pointer rounded-full hover:bg-slate-100 flex items-center relative p-2 transition-all "
-                  onClick={() =>
-                    handleAddToCart(product.id)
-                  }
+                  onClick={() => handleAddToCart(product.id)}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +42,6 @@ const Product = ({ cartCount, products, handleAddToCart }) => {
       })}
     </>
   );
-}
+};
 
-
-export default Product
+export default Product;
